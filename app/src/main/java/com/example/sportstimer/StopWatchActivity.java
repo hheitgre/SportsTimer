@@ -46,16 +46,10 @@ public class StopWatchActivity extends AppCompatActivity {
               resetSW();
           }
 
-          if (id == R.id.navigation_bar_destination_customTimer) {
-          intent = new Intent(StopWatchActivity.this, CustomActivity.class);
+        if (id == R.id.navigation_bar_destination_timer) {
+          intent = new Intent(StopWatchActivity.this, MainActivity.class);
           startActivity(intent);
           return true;
-
-          } else if (id == R.id.navigation_bar_destination_timer) {
-              intent = new Intent(StopWatchActivity.this, MainActivity.class);
-              startActivity(intent);
-              return true;
-
           } else if (id == R.id.navigation_bar_destination_settings) {
               intent = new Intent(StopWatchActivity.this, SettingsActivity.class);
               startActivity(intent);

@@ -40,10 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
             if(id == R.id.navigation_bar_destination_timer){
                 return true;
-            }else if(id == R.id.navigation_bar_destination_customTimer) {
-                intent = new Intent(MainActivity.this, CustomActivity.class);
-                startActivity(intent);
-                return true;
             }else if(id == R.id.navigation_bar_stopwatch) {
                 intent = new Intent(MainActivity.this, StopWatchActivity.class);
                 startActivity(intent);
