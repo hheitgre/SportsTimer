@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Minutes -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewMinutes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:gravity="end"
+                android:text="Minutes:"/>
+
+            <EditText
+                android:id="@+id/editTextMinutes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:hint="02"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/decrementMinutes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="-"
+                android:textSize="26sp"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/incrementMinutes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="+"
+                android:textSize="26sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <!-- Seconds -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewSeconds"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:gravity="end"
+                android:text="Seconds:"/>
+
+            <EditText
+                android:id="@+id/editTextSeconds"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:hint="00"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/decrementSeconds"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="-"
+                android:textSize="26sp"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/incrementSeconds"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="+"
+                android:textSize="26sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <!-- Rounds -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewRounds"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:gravity="end"
+                android:text="Rounds:"/>
+
+            <EditText
+                android:id="@+id/editTextRounds"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:hint="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/decrementRounds"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="-"
+                android:textSize="26sp"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/incrementRounds"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="+"
+                android:textSize="26sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <!-- Timeout / Cooldown -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewTimeOut"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:gravity="end"
+                android:text="Cooldown (seconds):"/>
+
+            <EditText
+                android:id="@+id/editTextTimeOut"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:hint="Cooldown (seconds)" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/decrementTimeOut"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="-"
+                android:textSize="26sp"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/incrementTimeOut"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="+"
+                android:textSize="26sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <!-- Start Button -->
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="START"
+            android:textSize="26sp"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:menu="@menu/bottom_navigation_menu" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch"
+        tools:layout_editor_absoluteX="225dp"
+        tools:layout_editor_absoluteY="148dp" />
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch"
+        tools:layout_editor_absoluteX="225dp"
+        tools:layout_editor_absoluteY="232dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="127dp"
+        android:layout_height="73dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="41dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

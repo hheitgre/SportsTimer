@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textViewStatus"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="178dp"
+        android:textColor="#FF0000"
+        android:textSize="55sp" />
+
+    <!-- Timer & Progress bar -->
+    <RelativeLayout
+        android:id="@+id/progress_layout"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_margin="100dp">
+
+        <TextView
+            android:id="@+id/textViewTimer"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="178dp"
+            android:textColor="#FF0000"
+            android:textSize="55sp" />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/circular_shape"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:textAlignment="center" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textViewRounds"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="178dp"
+        android:textColor="#FF0000"
+        android:textSize="55sp" />
+</LinearLayout>

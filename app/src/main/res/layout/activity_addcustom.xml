@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/addCustom_editTextWorkoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Workout Title"/>
+
+    <!-- Container for the rounds input fields -->
+    <LinearLayout
+        android:id="@+id/addCustom_roundsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
+
+    <!-- Initial round input fields -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/addCustom_editTextMinutes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Minutes"/>
+
+        <EditText
+            android:id="@+id/addCustom_editTextSeconds"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Seconds"/>
+
+        <EditText
+            android:id="@+id/addCustom_editTextTimeout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Timeout"/>
+
+        <EditText
+            android:id="@+id/addCustom_editTextTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Title"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addCustom_addItem_moreRounds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+1 Round" />
+
+    <Button
+        android:id="@+id/addCustom_addItem_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/addCustom_addItem_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel" />
+
+</LinearLayout>
