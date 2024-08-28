@@ -1,6 +1,8 @@
 package com.example.sportstimer;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -28,7 +30,6 @@ public class TimerActivity extends AppCompatActivity {
     private Handler handler = new Handler(Looper.getMainLooper());
     private MyTimer timer;
     private MyTimer timeout;
-    private int coolDownCount = 0;
     private enum TimerState {
         TIMER,
         TIMEOUT,
@@ -36,6 +37,8 @@ public class TimerActivity extends AppCompatActivity {
     }
     private TimerState currentState = TimerState.TIMER;
     private MediaPlayer mp;
+    private boolean isSoundAtEndEnabled;
+    private boolean isSoundAtStartEnabled;
 
 
     @Override
@@ -46,6 +49,18 @@ public class TimerActivity extends AppCompatActivity {
         timeField = findViewById(R.id.textViewTimer);
         roundsField = findViewById(R.id.textViewRounds);
         progressBar = findViewById(R.id.progress_bar);
+
+        // Lese die Nutzereinstellungen
+        SettingsUtility settingsUtility = new SettingsUtility();
+        SharedPreferences sharedPref = this.getSharedPreferences("preferences",
+                Context.MODE_PRIVATE);
+        isSoundAtEndEnabled = sharedPref.getBoolean("enableSoundAtEnd",true);
+        isSoundAtStartEnabled = sharedPref.getBoolean("enableSoundAtStart",false);
+        int test = sharedPref.getInt("test",-1);
+        Log.d("Timeractivity SHAREDPREF: ", Integer.toString(test));
+
+        settingsUtility.initSettings(this);
+
 
         // Der aus der MainActivity gesendete Intent wird hier ausgelesen.
         Intent intent = getIntent();
@@ -73,7 +88,7 @@ public class TimerActivity extends AppCompatActivity {
         };
         getOnBackPressedDispatcher().addCallback(this,callback);
 
-        // Start the timer
+        // Starte den Timer
         timer = new MyTimer(totalSeconds, enteredRounds, enteredTimeOut, 1, "FIGHT");
         timeout = new MyTimer(enteredTimeOut, 1, 0, 1, "TIMEOUT");
         timerThread = new TimerThread();
@@ -126,7 +141,14 @@ public class TimerActivity extends AppCompatActivity {
                 }else {
                     progressBar.setProgress(100);
                     timeField.setText(toMinuteLogic(0));
-                    playSound();
+                    // Spiele Sound ab, sofern aktiviert
+                    if(isSoundAtEndEnabled) {
+                        Log.d("TimerActivity","[timerRunnable]: sound at end is enabled");
+                        playSound(R.raw.bell);
+                    } else {
+                        Log.d("TimerActivity","[timerRunnable]: sound at end is" +
+                                " NOT enabled");
+                    }
                     Log.d("TimerProcess", "Round " +
                             timer.getCurrentRound() + " completed.");
 
@@ -143,6 +165,7 @@ public class TimerActivity extends AppCompatActivity {
 
                         }else {
                             // Speichere den Fortschritt im Timer und starte neue Runde
+
                             timerThread.load(timer);
                             currentState = TimerState.TIMER;
                             handler.post(timerRunnable);
@@ -172,7 +195,7 @@ public class TimerActivity extends AppCompatActivity {
                 if (!timeoutThread.isCompleted()) {
                     runOnUiThread(() -> {
                         progressBar.setProgress((int)timeoutThread.getProgress());
-                        statusField.setText(timer.getTitle());
+                        statusField.setText(timeout.getTitle());
                         timeField.setText(
                                 toMinuteLogic(timer.getTimeout() -
                                         timeoutThread.getRuntimeInSeconds()));
@@ -184,6 +207,16 @@ public class TimerActivity extends AppCompatActivity {
                     // Timeout abgeschlossen, gehe zurück in regulären Timer
                     Log.d("TimerProcess", "Timeout completed.");
                     progressBar.setProgress(100);
+
+                    // Der Ton fuer den Start der naechsten Runde wird am Ende der Timeout-Phase
+                    // abgespielt
+                    if(isSoundAtStartEnabled) {
+                        Log.d("TimerActivity","[timerRunnable]: sound at start is enabled");
+                        playSound(R.raw.beep_start);
+                    }else {
+                        Log.d("TimerActivity","[timerRunnable]: sound at start is not enabled");
+                    }
+
                     timerThread.load(timer);
                     timerThread.start(timeoutThread);
                     currentState = TimerState.TIMER;
@@ -217,13 +250,14 @@ public class TimerActivity extends AppCompatActivity {
      * Mit dem setOnCompletionListener wird der MediaPlayer wieder freigegeben und entfernt,
      * nachdem der Sound abgespielt wurde.
      */
-    protected void playSound() {
+
+    protected void playSound(int rawID) {
         if (mp != null) {
             mp.release();
             mp = null;
         }
 
-        mp = MediaPlayer.create(this, R.raw.bell);
+        mp = MediaPlayer.create(this, rawID);
         if (mp != null) {
             try {
                 mp.setAudioAttributes(new AudioAttributes.Builder()
@@ -245,5 +279,9 @@ public class TimerActivity extends AppCompatActivity {
         } else {
             Log.e("MediaPlayer", "Failed to create MediaPlayer instance");
         }
+    }
+
+    private void readPreferences() {
+
     }
 }

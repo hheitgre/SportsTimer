@@ -1,11 +1,14 @@
 package com.example.sportstimer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,7 +27,7 @@ public class StopWatchActivity extends AppCompatActivity {
     private long start;
     private String laps;
     private int lapCount = 0;
-    //private int defaultTextColor = -1;
+    private boolean displayMS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,6 @@ public class StopWatchActivity extends AppCompatActivity {
         bnv.setOnItemSelectedListener(item -> {
           Intent intent;
           int id = item.getItemId();
-
           if (id == R.id.navigation_bar_stopwatch) {
               return true;
           } else {
@@ -58,6 +60,13 @@ public class StopWatchActivity extends AppCompatActivity {
               return false;
           }
         });
+
+        // Lies die Einstellungen
+        SettingsUtility settingsUtility = new SettingsUtility();
+        SharedPreferences sharedPref = this.getSharedPreferences("preferences",
+                Context.MODE_PRIVATE);
+        settingsUtility.initSettings(this);
+        displayMS = sharedPref.getBoolean("displayMS", true);
 
         // Initialisiere UI-Elemente
         textViewSWTime = findViewById(R.id.SW_textViewTime);
@@ -168,7 +177,12 @@ public class StopWatchActivity extends AppCompatActivity {
         long min = ms / 60_000;
         long sec = (ms % 60_000) / 1000;
         long mil = ms % 1000;
-        return String.format("%02d:%02d.%03d", min, sec, mil);
+        if(displayMS){
+            return String.format("%02d:%02d.%03d", min, sec, mil);
+        } else{
+            return String.format("%02d:%02d", min, sec);
+        }
+
     }
 
     /**

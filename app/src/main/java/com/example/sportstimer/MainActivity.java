@@ -1,6 +1,10 @@
 package com.example.sportstimer;
 
+import static android.app.PendingIntent.getActivity;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -14,7 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * Diese Klasse ist fuer den Startbildschirm verantwortlich, den der Nutzer beim Starten der App
- * zu sehen bekommt. Sie ermoeglicht ihm, einen rundenbasierten Timer zu starten.
+ * zu sehen bekommt. Sie ermoeglicht ihm, einen rundenbasierten Timer zu starten oder die
+ * Aktivitaet ueber die BottomNavigationView zu wechseln.
  *
  * @author Heiko Heitgress
  */
