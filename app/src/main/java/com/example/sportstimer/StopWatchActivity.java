@@ -28,6 +28,7 @@ public class StopWatchActivity extends AppCompatActivity {
     private String laps;
     private int lapCount = 0;
     private boolean displayMS;
+    private String colorScheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class StopWatchActivity extends AppCompatActivity {
                 Context.MODE_PRIVATE);
         settingsUtility.initSettings(this);
         displayMS = sharedPref.getBoolean("displayMS", true);
+        colorScheme = sharedPref.getString("colorScheme","Lavender / Midnight");
 
         // Initialisiere UI-Elemente
         textViewSWTime = findViewById(R.id.SW_textViewTime);
@@ -75,6 +77,14 @@ public class StopWatchActivity extends AppCompatActivity {
         startStopButton = findViewById(R.id.SW_startStopButton);
         resetButton = findViewById(R.id.SW_resetButton);
         lapButton = findViewById(R.id.SW_lapButton);
+
+        // Passe die UI-Elemente an das gewuenschte Farbschema an
+        SettingsUtility.applyColorToButton(this, colorScheme, startStopButton, true);
+        SettingsUtility.applyColorToButton(this, colorScheme, lapButton, false);
+        SettingsUtility.applyColorToButton(this, colorScheme, resetButton, true);
+
+
+
 
         // Setze onClick-Listener auf die Buttons
         startStopButton.setOnClickListener(view -> {

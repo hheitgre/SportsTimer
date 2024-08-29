@@ -1,6 +1,5 @@
 package com.example.sportstimer;
 
-import static android.app.PendingIntent.getActivity;
 import static com.example.sportstimer.R.*;
 
 import android.content.Context;
@@ -8,16 +7,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.Switch;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.File;
-
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity<AutoCompleteTextView> extends AppCompatActivity {
     private Switch switch_playSoundAtEnd;
     private Switch switch_playSoundAtStart;
     private Switch switch_displayMS;
@@ -56,7 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
         settingsUtility.initSettings(this);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        // Initialisiere die UI-Elemente (Switches) \\
+        // Initialisiere die UI-Elemente \\
         // Sound am Ende der Runde
         switch_playSoundAtEnd = findViewById(id.switch_settings_endSound);
         switch_playSoundAtEnd.setChecked(sharedPref.getBoolean("enableSoundAtEnd", true));
@@ -72,6 +71,28 @@ public class SettingsActivity extends AppCompatActivity {
         switch_displayMS.setChecked(sharedPref.getBoolean("displayMS",true));
         manipulateWithSwitch(switch_displayMS, sharedPref, editor, "displayMS");
 
+        // Designs
+        Spinner spinner = findViewById(id.spinner_colorScheme);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                array.color_schemes, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        String savedColorScheme = sharedPref.getString("colorScheme", "Lavender / Midnight");
+        if (savedColorScheme != null) {
+            int spinnerPosition = adapter.getPosition(savedColorScheme);
+            spinner.setSelection(spinnerPosition);
+        }
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                editor.putString("colorScheme",selectedItem);
+                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
     }
 

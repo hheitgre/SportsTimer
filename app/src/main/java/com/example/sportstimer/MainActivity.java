@@ -2,18 +2,24 @@ package com.example.sportstimer;
 
 import static android.app.PendingIntent.getActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
@@ -30,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextSeconds;
     private EditText editTextRounds;
     private EditText editTextTimeOut;
+    private String colorScheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Lies die Nutzereinstellungen
+        SettingsUtility settingsUtility = new SettingsUtility();
+        SharedPreferences sharedPref = this.getSharedPreferences("preferences",
+                Context.MODE_PRIVATE);
+        colorScheme = sharedPref.getString("colorScheme","Lavender / Midnight");
+        settingsUtility.initSettings(this);
+
         // Initialisiere TextView-Felder
         textViewMinutes = findViewById(R.id.textViewMinutes);
 
@@ -86,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialisiere die Buttons
         Button startButton = findViewById(R.id.startButton);
+        SettingsUtility.applyColorToButton(this, colorScheme, startButton, true);
         startButton.setOnClickListener(view -> {
 
             if (isEmpty(editTextMinutes) || isEmpty(editTextSeconds) || isEmpty(editTextRounds)
@@ -159,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
      * @param et den Wert dieses EditText-Feldes soll der Button manipulieren
      * @param inc legt fest, ob es sich um einen increment- oder decrement-Knopf handelt
      */
+    @SuppressLint("ResourceAsColor")
     public void initButton(Button button, EditText et, boolean inc) {
         button.setOnClickListener(view -> {
             if(!isEmpty(et)){
@@ -176,13 +192,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 et.setText(String.valueOf(current));
             }else{
-                if(inc == true){
-                    et.setText("1");
-                }else {
-                    et.setText("0");
-                }
+                et.setText(inc ? "1" : "0");
             }
         });
+        // Setze das Farbschema gem. den Nutzereinstellungen
+        SettingsUtility.applyColorToButton(this, colorScheme, button, inc);
     }
 
     public boolean isEmpty(EditText et) {
@@ -220,4 +234,3 @@ public class MainActivity extends AppCompatActivity {
         from.addTextChangedListener(tw);
     }
 }
-

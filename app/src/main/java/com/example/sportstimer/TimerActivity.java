@@ -58,7 +58,6 @@ public class TimerActivity extends AppCompatActivity {
         isSoundAtStartEnabled = sharedPref.getBoolean("enableSoundAtStart",false);
         int test = sharedPref.getInt("test",-1);
         Log.d("Timeractivity SHAREDPREF: ", Integer.toString(test));
-
         settingsUtility.initSettings(this);
 
 

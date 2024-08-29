@@ -38,6 +38,7 @@
                 android:id="@+id/SW_startStopButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="START" />
         </LinearLayout>
 
@@ -66,6 +67,7 @@
                 android:id="@+id/SW_resetButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@color/white"
                 android:text="RESET" />
         </LinearLayout>
 
