@@ -1,8 +1,8 @@
 package com.example.sportstimer;
 
 import android.util.Log;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * In dieser Klasse werden die im Hintergrund laufenden Threads festgelegt, welche von den
@@ -14,8 +14,6 @@ public class TimerThread extends Thread {
     private long start;
     private long limit;
     private long end;
-    private int secondsRemaining;
-    private boolean running;
     private Thread currentThread = null;
     private double progress;
     private boolean isCompleted = false;
@@ -30,8 +28,9 @@ public class TimerThread extends Thread {
     }
 
     /**
-     *
-     * @param timer wird bei Aufruf geladen
+     * Hiermit wird ein TimerThread initialisiert; es wird der Start- und Endzeitpunkt berechnet.
+     * Ausserdem werden die Attribute des TimerThreads mit den Werten 0 bzw. false initialisiert.
+     * @param timer: das Sekundenlimit des Timer-Objektes fuer die Berechnung des Zeitlimits
      */
     public void load(@NonNull MyTimer timer){
         stopTimer();
@@ -51,8 +50,8 @@ public class TimerThread extends Thread {
      * @param conflict ist ein Thread, der zur Sicherheit beendet wird, wenn er noch aktiv ist,
      *                 um Rivalitaeten zwischen den Threads zu vermeiden
      */
-    public synchronized void start(TimerThread conflict){
-        Log.d("TimerThread","Starting thread...");
+    public synchronized void start(@Nullable TimerThread conflict){
+        Log.d("TimerThread", "Starting thread...");
         if(conflict != null && conflict.isRunning()){
             conflict.stopTimer();
         }
@@ -62,30 +61,26 @@ public class TimerThread extends Thread {
         }
 
         this.isCompleted = false;
-
         currentThread = new Thread(() -> {
             runtime = System.currentTimeMillis() - start;
             while(runtime < limit) {
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
-                    Log.d("TimerThread","Calling return");
+                    Log.d("TimerThread", "Calling return");
                     return;
                 }
                 runtime = System.currentTimeMillis() - start;
                 progress = ((double)runtime / (double) limit) * 100;
-                Log.d("TimerThread","Runtime: "
+                Log.d("TimerThread", "Runtime: "
                         + runtime + "(" + progress + "%)");
             }
             this.isCompleted = true;
-            Log.d("TimerThread","Runde beendet!");
+            Log.d("TimerThread", "Runde beendet!");
         });
         currentThread.start();
     }
 
-    /**
-     * TODO: Muss ich sowas auch dokumentieren?
-     */
     public void stopTimer(){
         if(currentThread != null) {
             currentThread.interrupt();
@@ -93,9 +88,6 @@ public class TimerThread extends Thread {
         }
     }
 
-    /**
-     * TODO: Muss ich sowas auch dokumentieren?
-     */
     public boolean isRunning(){
         if(currentThread != null) {
             return (currentThread.isAlive());

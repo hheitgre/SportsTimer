@@ -1,24 +1,18 @@
 package com.example.sportstimer;
 
-import static android.app.PendingIntent.getActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -29,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  *
  * @author Heiko Heitgress
  */
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView textViewMinutes;

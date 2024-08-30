@@ -5,28 +5,38 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.util.Log;
 import android.widget.Button;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+/**
+ * Der Zweck dieser Klasse ist es, oeffentliche Methoden zur Initialisierung und Verwendung
+ * der Nutzereinstellungen mittels SharedPreferences bereitzustellen.
+ * @author Heiko Heitgress
+ */
 public class SettingsUtility {
+
+    /**
+     * Ueberprueft, ob bereits Nutzereinstellungen in den SharedPreferences "preferences"
+     * vorliegen und legt Standard-Einstellungen an, wenn dies nicht der Fall ist.
+     * @param context der Kontext, von dem die Methode aufgerufen wird (this)
+     */
     public void initSettings(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("preferences",
                 Context.MODE_PRIVATE);
 
         if(preferences.getBoolean("firstRun", true)) {
             // Die App wird zum 1. Mal ausgefuehrt
-            Log.d("SettingsActivity","[initSettings]: First run. Writing default" +
+            Log.d("SettingsActivity", "[initSettings]: First run. Writing default" +
                     " settings");
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("enableSoundAtEnd", true);
             editor.putBoolean("enableSoundAtStart", true);
             editor.putBoolean("firstRun", false);
             editor.putBoolean("displayMS", true);
-            editor.putString("colorSchemes","Lavender / Midnight");
+            editor.putString("colorSchemes", "Lavender / Midnight");
+            editor.apply();
         } else {
-            Log.d("SettingsActivity","[initSettings]: Not the first run."
-                    + " Reading settings...");
+            Log.d("SettingsActivity", "[initSettings]: Not the first run.");
         }
     }
 
@@ -60,7 +70,7 @@ public class SettingsUtility {
         if(colorToSet != -1){
             button.setBackgroundTintList(ColorStateList.valueOf(colorToSet));
         } else{
-            Log.e("SettingsUtility","[applyColorToButton]: " +
+            Log.e("SettingsUtility", "[applyColorToButton]: " +
                     "Couldn't retrieve color scheme: " +  colorScheme);
         }
     }

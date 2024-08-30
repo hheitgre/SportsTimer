@@ -17,8 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Looper;
 
-
-
 public class TimerActivity extends AppCompatActivity {
 
     private TextView statusField;    // Status: "FIGHT" / "COOLDOWN" / "FINISHED"
@@ -36,10 +34,9 @@ public class TimerActivity extends AppCompatActivity {
         FINISHED
     }
     private TimerState currentState = TimerState.TIMER;
-    private MediaPlayer mp;
+    private MediaPlayer mediaPlayer;
     private boolean isSoundAtEndEnabled;
     private boolean isSoundAtStartEnabled;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,7 +92,6 @@ public class TimerActivity extends AppCompatActivity {
         handler.post(timerRunnable);
 
     }
-
 
     /**
      * Die Runnable dient dazu, den TimerThread besser steuern zu koennen. Sie sendet dem
@@ -243,44 +239,39 @@ public class TimerActivity extends AppCompatActivity {
 
 
     /**
-     * Spielt einen Klingel-Sound ab. Es wird zu Beginn ueberprueft, ob bereits eine mp-Instanz
-     * vorhanden ist und diese ggf. freigegeben und entfernt, um eine Thread-Sicherheit
+     * Spielt einen Sound ab. Es wird zu Beginn ueberprueft, ob bereits eine mediaPlayer-
+     * Instanz vorhanden ist und diese ggf. freigegeben und entfernt, um eine Thread-Sicherheit
      * zu gewaehrleisten. Anschliessend wird eine neue Instanz erstellt und gestartet.
      * Mit dem setOnCompletionListener wird der MediaPlayer wieder freigegeben und entfernt,
      * nachdem der Sound abgespielt wurde.
      */
-
     protected void playSound(int rawID) {
-        if (mp != null) {
-            mp.release();
-            mp = null;
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
 
-        mp = MediaPlayer.create(this, rawID);
-        if (mp != null) {
+        mediaPlayer = MediaPlayer.create(this, rawID);
+        if (mediaPlayer != null) {
             try {
-                mp.setAudioAttributes(new AudioAttributes.Builder()
+                mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
                         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                         .setUsage(AudioAttributes.USAGE_ALARM)
                         .build());
-                mp.start();
-                mp.setOnCompletionListener(mediaPlayer -> {
+                mediaPlayer.start();
+                mediaPlayer.setOnCompletionListener(mediaPlayer -> {
                     mediaPlayer.release();
-                    mp = null;
+                    mediaPlayer = null;
                 });
             } catch (IllegalStateException e) {
                 Log.e("MediaPlayer", "Error: " + e.getMessage());
-                if (mp != null) {
-                    mp.release();
-                    mp = null;
+                if (mediaPlayer != null) {
+                    mediaPlayer.release();
+                    mediaPlayer = null;
                 }
             }
         } else {
             Log.e("MediaPlayer", "Failed to create MediaPlayer instance");
         }
-    }
-
-    private void readPreferences() {
-
     }
 }

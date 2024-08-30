@@ -15,7 +15,6 @@ public class MyTimer {
     private int currentRound;
     private String title;
 
-
     public MyTimer(int seconds, int rounds, int timeout, int currentRound, String title){
         this.seconds = seconds;
         this.rounds = rounds;

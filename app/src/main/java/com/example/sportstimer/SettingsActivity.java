@@ -102,14 +102,14 @@ public class SettingsActivity<AutoCompleteTextView> extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(sw.isChecked()){
-                    Log.d("SettingsActivity","[manipulateWithSwitch]: " +
+                    Log.d("SettingsActivity", "[manipulateWithSwitch]: " +
                             "Switch " + setting + " activated!");
-                    editor.putBoolean(setting,true);
+                    editor.putBoolean(setting, true);
                     editor.apply();
                 }else {
-                    Log.d("SettingsActivity","[manipulateWithSwitch]: " +
+                    Log.d("SettingsActivity", "[manipulateWithSwitch]: " +
                             "Switch " + setting + " deactivated!");
-                    editor.putBoolean(setting,false);
+                    editor.putBoolean(setting, false);
                     editor.apply();
                 }
             }

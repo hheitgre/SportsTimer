@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -68,7 +67,7 @@ public class StopWatchActivity extends AppCompatActivity {
                 Context.MODE_PRIVATE);
         settingsUtility.initSettings(this);
         displayMS = sharedPref.getBoolean("displayMS", true);
-        colorScheme = sharedPref.getString("colorScheme","Lavender / Midnight");
+        colorScheme = sharedPref.getString("colorScheme", "Lavender / Midnight");
 
         // Initialisiere UI-Elemente
         textViewSWTime = findViewById(R.id.SW_textViewTime);
